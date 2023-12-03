@@ -1,40 +1,30 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
-const slugify = require('slugify');
 
-const blogSchema = new mongoose.Schema(
+const supplySchema = new mongoose.Schema(
     {
-        title: {
+        name: {
             type: String,
-            required: [true, 'A blog must have a name'],
+            required: [true, 'A supply must have a name'],
             trim: true,
         },
-        slug: String,
-        description: {
-            type: String,
-            required: true,
-            trim: true,
+        point: {
+            type: Number,
+            default: 0,
         },
-        author: {
+        user: {
             type: mongoose.Schema.ObjectId,
             ref: 'User',
             required: true,
         },
-        school: {
-            type: mongoose.Schema.ObjectId,
-            ref: 'School',
-            required: true,
-        },
-        summary: {
+        status: {
             type: String,
-            trim: true,
-            required: [true, 'A blog must have a summary'],
+            required: [true, 'A tour must have a difficulty'],
+            enum: {
+                values: ['not_received', 'received', 'transfer'],
+                message: 'status is either : not_received, received, transfer.',
+            },
         },
         image: String,
-        home: {
-            type: Boolean,
-            default: false,
-        },
     },
     {
         toJSON: { virtuals: true },
@@ -43,17 +33,8 @@ const blogSchema = new mongoose.Schema(
     },
 );
 
-blogSchema.index({ title: 1 });
-blogSchema.index({ slug: 1 });
-blogSchema.index({ tags: 1 });
+supplySchema.index({ name: 1 });
 
-blogSchema.pre('save', function (next) {
-    const date = new Date();
-    this.slug = `${slugify(this.title, { lower: true })}-${moment(date).format(
-        'DDHHmmss',
-    )}`;
-    next();
-});
-const Blog = mongoose.model('Blog', blogSchema);
+const Supply = mongoose.model('Supply', supplySchema);
 
-module.exports = Blog;
+module.exports = Supply;

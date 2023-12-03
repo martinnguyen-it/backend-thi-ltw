@@ -13,13 +13,11 @@ const compression = require('compression');
 const cookieParser = require('cookie-parser');
 
 const uploadRouter = require('./routes/uploadRoutes');
-const tourRouter = require('./routes/tourRoutes');
 const schoolRouter = require('./routes/schoolRoutes');
 const blogRouter = require('./routes/blogRoutes');
 const userRouter = require('./routes/userRoutes');
 const authRouter = require('./routes/authRoutes');
-const reviewRouter = require('./routes/reviewRoutes');
-const payRouter = require('./routes/payRoutes');
+const supplyRouter = require('./routes/supplyRoutes');
 const AppError = require('./helpers/appError');
 const handleError = require('./helpers/errorHandler');
 const swaggerSpec = require('./utils/swagger');
@@ -78,9 +76,7 @@ app.use(compression());
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/school', schoolRouter);
-app.use('/api/v1/tours', tourRouter);
-app.use('/api/v1/reviews', reviewRouter);
-app.use('/api/v1/pay', payRouter);
+app.use('/api/v1/supply', supplyRouter);
 app.use('/api/v1/upload', uploadRouter);
 app.use('/api/v1/blog', blogRouter);
 
