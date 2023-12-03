@@ -1,0 +1,5 @@
+# misc
+.env
+node_modules
+dev-data
+yarn-error.log
