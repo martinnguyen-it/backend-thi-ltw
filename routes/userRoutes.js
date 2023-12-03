@@ -3,6 +3,7 @@ const userController = require('../controllers/userController');
 const authController = require('../controllers/authController');
 const authMiddleware = require('../middlewares/authMiddleware');
 const uploadImage = require('../middlewares/uploadImage');
+const uploadPhoto = require('../middlewares/uploadPhoto');
 
 const router = express.Router();
 
@@ -21,7 +22,11 @@ router.use(authMiddleware.redirectTo('admin'));
 router
     .route('/')
     .get(userController.getAllUsers)
-    .post(userController.createUser);
+    .post(
+        uploadPhoto.uploadPhoto,
+        uploadPhoto.uploadPhotoForUser,
+        userController.createUser,
+    );
 
 router
     .route('/:id')

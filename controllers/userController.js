@@ -13,12 +13,7 @@ exports.getMe = (req, res, next) => {
     next();
 };
 
-exports.createUser = (req, res) => {
-    res.status(500).json({
-        status: 'error',
-        message: 'This route is not yet defined',
-    });
-};
+exports.createUser = userService.createOne(User);
 
 exports.updateUser = (req, res) => {
     res.status(500).json({
@@ -35,7 +30,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     }
 
     const valueUpdate = filterObj(req.body, 'email', 'name');
-    if (req.file) valueUpdate.photo = req.file.filename;
+    if (req.file) valueUpdate.image = req.file.filename;
 
     const user = await User.findByIdAndUpdate(req.user.id, valueUpdate, {
         new: true,

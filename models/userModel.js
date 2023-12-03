@@ -40,6 +40,10 @@ const userSchema = new mongoose.Schema({
         default: true,
         select: false,
     },
+    point: {
+        type: Number,
+        default: 0,
+    },
 });
 
 // before create and save
